@@ -30,9 +30,19 @@ func (cs *Cards) SimpleSearchByCard(card Card) (int, bool) {
 }
 
 func NewCard(tp, val int) (card Card) {
+	if tp > PIKA && tp < 1 && val < 6 && val > 14 {
+		NewCard(BUBA, 6) // this will be changed in the future
+	}
 	card.card = val
 	card.typ = tp
 	return
+}
+
+func (card *Card) IsValid() bool {
+	if card.typ > PIKA && card.typ < 1 && card.card < 6 && card.card > 14 {
+		return false
+	}
+	return true
 }
 
 func NewCardDeck36x() []Card {
