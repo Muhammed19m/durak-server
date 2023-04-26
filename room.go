@@ -20,8 +20,14 @@ func (room Room) Run() {
 	game := durak.NewGame()
 	game.DealCards()
 
-	// players_id := map[*Player]int{room.ply1: 1, room.ply2: 2}
-
+	s, err := game.GetStatusPlayer(1)
+	if err == nil {
+		room.ply1.Send(s)
+	}
+	s, err = game.GetStatusPlayer(2)
+	if err == nil {
+		room.ply2.Send(s)
+	}
 	for {
 		select {
 		case mes := <-room.ply1.Recv:
@@ -30,6 +36,15 @@ func (room Room) Run() {
 		case mes := <-room.ply2.Recv:
 			_, err := Motion(&game, mes, 2)
 			room.ply2.SendText(err.Error())
+		}
+
+		s, err = game.GetStatusPlayer(1)
+		if err == nil {
+			room.ply1.Send(s)
+		}
+		s, err = game.GetStatusPlayer(2)
+		if err == nil {
+			room.ply2.Send(s)
 		}
 	}
 }

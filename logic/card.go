@@ -31,7 +31,7 @@ func (cs *Cards) SimpleSearchByCard(card Card) (int, bool) {
 
 func NewCard(tp, val int) (card Card) {
 	if tp > PIKA && tp < 1 && val < 6 && val > 14 {
-		NewCard(BUBA, 6) // this will be changed in the future
+		return NewCard(BUBA, 6) // this will be changed in the future
 	}
 	card.card = val
 	card.typ = tp

@@ -13,7 +13,7 @@ func NewPlayer(conn *websocket.Conn) *Player {
 	return ply
 }
 
-func (p *Player) Send(mes Message) error {
+func (p *Player) Send(mes any) error {
 	return p.conn.WriteJSON(mes)
 }
 
