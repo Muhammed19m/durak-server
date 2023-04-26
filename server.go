@@ -40,7 +40,7 @@ func (s *Server) runGame() {
 		if len(s.players) >= 2 {
 			ply1 := s.players[len(s.players)-1]
 			ply2 := s.players[len(s.players)-2]
-			s.players = s.players[:len(s.players)-1]
+			s.players = s.players[:len(s.players)-2]
 			room := NewRoom(ply1, ply2)
 			log.Println("Room run")
 			go room.Run()
