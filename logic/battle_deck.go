@@ -7,10 +7,10 @@ type PairCard struct {
 
 func Contains(cs []PairCard, card Card) bool {
 	for _, v := range cs {
-		if v.card.card == card.card {
+		if v.card.Card == card.Card {
 			return true
 		} else if v.hit != nil {
-			if v.hit.card == card.card {
+			if v.hit.Card == card.Card {
 				return true
 			}
 		}

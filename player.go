@@ -1,6 +1,10 @@
 package main
 
-import "github.com/gorilla/websocket"
+import (
+	"log"
+
+	"github.com/gorilla/websocket"
+)
 
 type Player struct {
 	conn *websocket.Conn
@@ -27,6 +31,8 @@ func (p *Player) recv() {
 		err := p.conn.ReadJSON(mes)
 		if err == nil {
 			p.Recv <- mes
+		} else {
+			log.Println("invalid message ", mes, " err: ", err)
 		}
 	}
 }

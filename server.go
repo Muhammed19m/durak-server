@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"sync"
 	"time"
 
@@ -36,11 +37,12 @@ func (s *Server) listen() {
 func (s *Server) runGame() {
 	for {
 		s.mx.Lock()
-		if len(s.players) > 2 {
+		if len(s.players) >= 2 {
 			ply1 := s.players[len(s.players)-1]
 			ply2 := s.players[len(s.players)-2]
 			s.players = s.players[:len(s.players)-1]
 			room := NewRoom(ply1, ply2)
+			log.Println("Room run")
 			go room.Run()
 		}
 		s.mx.Unlock()

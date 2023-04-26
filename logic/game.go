@@ -93,7 +93,7 @@ func (gm *Game) HitCard(id int, card Card, index_battle_cards int) error {
 
 					card_who := gm.current_battle[index_battle_cards]
 					if card_who.hit == nil {
-						if (card_who.card.card < card.card && card_who.card.typ == card.typ) || (card_who.card.typ != gm.trump.typ && card.typ == gm.trump.typ) {
+						if (card_who.card.Card < card.Card && card_who.card.Typ == card.Typ) || (card_who.card.Typ != gm.trump.Typ && card.Typ == gm.trump.Typ) {
 							gm.players[i].cards.Remove(card_i)
 							gm.current_battle[index_battle_cards].hit = &card
 							return nil
@@ -202,7 +202,7 @@ func (gm *Game) startProgress() {
 	for _, ply := range gm.players {
 		for _, c := range *ply.cards {
 
-			if c.typ == gm.trump.typ && min_trump_card.card > c.card {
+			if c.Typ == gm.trump.Typ && min_trump_card.Card > c.Card {
 				min_trump_card = c
 				id = ply.id
 			}

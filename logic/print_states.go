@@ -70,19 +70,19 @@ func (pc *PairCard) PrintPairCard() {
 
 func (c *Card) PrintCard() {
 	switch {
-	case c.card < 11:
-		fmt.Print(c.card, " ")
-	case c.card == 11:
+	case c.Card < 11:
+		fmt.Print(c.Card, " ")
+	case c.Card == 11:
 		fmt.Print("Валет ")
-	case c.card == 12:
+	case c.Card == 12:
 		fmt.Print("Дама ")
-	case c.card == 13:
+	case c.Card == 13:
 		fmt.Print("Король ")
-	case c.card == 14:
+	case c.Card == 14:
 		fmt.Print("Туз ")
 	}
 
-	switch c.typ {
+	switch c.Typ {
 	case BUBA:
 		fmt.Print("♦")
 	case CHERVA:

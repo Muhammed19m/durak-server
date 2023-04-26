@@ -22,7 +22,7 @@ func (room Room) Run() {
 
 	s, err := game.GetStatusPlayer(1)
 	if err == nil {
-		room.ply1.Send(s)
+		room.ply1.Send(&s)
 	}
 	s, err = game.GetStatusPlayer(2)
 	if err == nil {

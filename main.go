@@ -21,9 +21,13 @@ func main() {
 	serv := NewServer()
 
 	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
+		log.Println("User connected")
 		conn, err := upgrader.Upgrade(w, r, nil)
 		if err == nil {
+			log.Println("conn upgrade")
 			serv.Flow_players <- conn
+		} else {
+			log.Println("error upgrade")
 		}
 	})
 

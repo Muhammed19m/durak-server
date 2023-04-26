@@ -9,8 +9,8 @@ const (
 )
 
 type Card struct {
-	typ  int
-	card int
+	Typ  int
+	Card int
 }
 
 type Cards []Card
@@ -33,13 +33,13 @@ func NewCard(tp, val int) (card Card) {
 	if tp > PIKA && tp < 1 && val < 6 && val > 14 {
 		return NewCard(BUBA, 6) // this will be changed in the future
 	}
-	card.card = val
-	card.typ = tp
+	card.Card = val
+	card.Typ = tp
 	return
 }
 
 func (card *Card) IsValid() bool {
-	if card.typ > PIKA && card.typ < 1 && card.card < 6 && card.card > 14 {
+	if card.Typ > PIKA && card.Typ < 1 && card.Card < 6 && card.Card > 14 {
 		return false
 	}
 	return true

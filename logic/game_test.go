@@ -72,7 +72,7 @@ func assert_eq_slice_card(a, b []Card, t *testing.T) {
 		t.Errorf("len slice1 != len slice2, %v != %v", len(a), len(b))
 	} else {
 		for i := 0; i < len(a); i++ {
-			if a[i].card != b[i].card || a[i].typ != b[i].typ {
+			if a[i].Card != b[i].Card || a[i].Typ != b[i].Typ {
 				t.Errorf("%v != %v", a, b)
 				return
 			}

@@ -3,10 +3,10 @@ package game
 import "fmt"
 
 type Status struct {
-	cards                Cards
-	trump                Card
-	amount_cards_in_deck int
-	battle               []PairCard
+	Cards                Cards
+	Trump                Card
+	Amount_cards_in_deck int
+	Battle               []PairCard
 }
 
 func (gm *Game) GetStatusPlayer(id int) (Status, error) {
