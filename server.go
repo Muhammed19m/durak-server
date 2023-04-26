@@ -8,21 +8,32 @@ import (
 )
 
 type Server struct {
-	flow_players chan *websocket.Conn
+	Flow_players chan *websocket.Conn
 	mx           sync.Mutex
 	players      []*websocket.Conn
 }
 
-func (s *Server) Listen() {
+func NewServer() *Server {
+	serv := &Server{
+		make(chan *websocket.Conn, 128),
+		sync.Mutex{},
+		make([]*websocket.Conn, 0, 10),
+	}
+	go serv.listen()
+	go serv.runGame()
+	return serv
+}
+
+func (s *Server) listen() {
 	for {
-		ply := <-s.flow_players
+		ply := <-s.Flow_players
 		s.mx.Lock()
 		s.players = append(s.players, ply)
 		s.mx.Unlock()
 	}
 }
 
-func (s *Server) StartGame() {
+func (s *Server) runGame() {
 	for {
 		s.mx.Lock()
 		if len(s.players) > 2 {
