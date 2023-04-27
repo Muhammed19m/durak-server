@@ -55,15 +55,15 @@ func (gm *Game) PrintPlayerCards() {
 }
 
 func (pc *PairCard) PrintPairCard() {
-	if pc.hit == nil {
+	if pc.Hit == nil {
 		fmt.Print("\t")
-		pc.card.PrintCard()
+		pc.Card.PrintCard()
 		fmt.Println(" не отбит")
 	} else {
 		fmt.Print("\t")
-		pc.card.PrintCard()
+		pc.Card.PrintCard()
 		fmt.Print(" отбит ")
-		pc.hit.PrintCard()
+		pc.Hit.PrintCard()
 		fmt.Println()
 	}
 }

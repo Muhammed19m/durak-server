@@ -27,17 +27,24 @@ func (room Room) Run() {
 	}
 	s, err = game.GetStatusPlayer(2)
 	if err == nil { // everytime err == nil
-		room.ply2.Send(s)
+		room.ply2.Send(&s)
 	}
+
+	game.PrintPlayerCards()
+	game.PrintProgress()
 	// loop:
 	for {
 		select {
 		case mes := <-room.ply1.Recv:
 			_, err := Motion(&game, mes, 1)
-			room.ply1.SendText(err.Error())
+			if err != nil {
+				room.ply1.SendText(err.Error())
+			}
 		case mes := <-room.ply2.Recv:
 			_, err := Motion(&game, mes, 2)
-			room.ply2.SendText(err.Error())
+			if err != nil {
+				room.ply2.SendText(err.Error())
+			}
 			// case <-time.After(time.Second * 15): // timeout
 			// 	room.ply1.SendText("game end, someone didn't fit")
 			// 	room.ply2.SendText("game end, someone didn't fit")

@@ -1,16 +1,16 @@
 package game
 
 type PairCard struct {
-	card Card
-	hit  *Card
+	Card Card
+	Hit  *Card
 }
 
 func Contains(cs []PairCard, card Card) bool {
 	for _, v := range cs {
-		if v.card.Card == card.Card {
+		if v.Card.Card == card.Card {
 			return true
-		} else if v.hit != nil {
-			if v.hit.Card == card.Card {
+		} else if v.Hit != nil {
+			if v.Hit.Card == card.Card {
 				return true
 			}
 		}

@@ -3,6 +3,7 @@ package game
 import (
 	"errors"
 	"fmt"
+	"log"
 	"serv_durak/logic/deque"
 )
 
@@ -70,6 +71,7 @@ func (gm *Game) ThrowCard(id int, card Card) error {
 			if j, find := gm.players.SimpleSearchById(gm.progress.towhom); find {
 				if CanStill(gm.current_battle, &gm.players[j]) > 0 {
 					if i, find := gm.players.SimpleSearchById(id); find {
+						log.Println(id, card)
 						if card_i, find := gm.players[i].cards.SimpleSearchByCard(card); find {
 							gm.players[i].cards.Remove(card_i)
 							gm.current_battle = append(gm.current_battle, NewPairCard(card))
@@ -95,10 +97,10 @@ func (gm *Game) HitCard(id int, card Card, index_battle_cards int) error {
 				if card_i, find := gm.players[i].cards.SimpleSearchByCard(card); find {
 
 					card_who := gm.current_battle[index_battle_cards]
-					if card_who.hit == nil {
-						if (card_who.card.Card < card.Card && card_who.card.Typ == card.Typ) || (card_who.card.Typ != gm.trump.Typ && card.Typ == gm.trump.Typ) {
+					if card_who.Hit == nil {
+						if (card_who.Card.Card < card.Card && card_who.Card.Typ == card.Typ) || (card_who.Card.Typ != gm.trump.Typ && card.Typ == gm.trump.Typ) {
 							gm.players[i].cards.Remove(card_i)
-							gm.current_battle[index_battle_cards].hit = &card
+							gm.current_battle[index_battle_cards].Hit = &card
 							return nil
 						}
 						return errors.New("the card is weak to fight back")
@@ -119,10 +121,10 @@ func (gm *Game) Raise(id int) (int, error /* > 0 if win, if == 0 then nobody won
 		if i, find := gm.players.SimpleSearchById(id); find {
 			if gm.states.pass {
 				for _, pc := range gm.current_battle {
-					if pc.hit != nil {
-						*gm.players[i].cards = append(*gm.players[i].cards, pc.card, *pc.hit)
+					if pc.Hit != nil {
+						*gm.players[i].cards = append(*gm.players[i].cards, pc.Card, *pc.Hit)
 					} else {
-						*gm.players[i].cards = append(*gm.players[i].cards, pc.card)
+						*gm.players[i].cards = append(*gm.players[i].cards, pc.Card)
 					}
 				}
 				gm.current_battle = gm.current_battle[:0]
@@ -176,7 +178,7 @@ func (gm *Game) Bito(id int) (int, error /* > 0 if win, if == 0 then nobody won 
 			return 0, errors.New("your turn")
 		}
 		for _, v := range gm.current_battle {
-			if v.hit == nil {
+			if v.Hit == nil {
 				return 0, errors.New("not all cards are beaten")
 			}
 		}
@@ -230,7 +232,7 @@ type States struct {
 func CanStill(sl []PairCard, ply_slugger *Player) int {
 	res := 0
 	for _, v := range sl {
-		if v.hit == nil {
+		if v.Hit == nil {
 			res++
 		}
 	}
