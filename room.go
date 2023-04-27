@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	durak "serv_durak/logic"
 
 	"github.com/gorilla/websocket"
@@ -60,5 +59,5 @@ func (room Room) Run() {
 			room.ply2.Send(s)
 		}
 	}
-	log.Println("Game end")
+	// log.Println("Game end")
 }

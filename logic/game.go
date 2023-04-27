@@ -3,7 +3,6 @@ package game
 import (
 	"errors"
 	"fmt"
-	"log"
 	"serv_durak/logic/deque"
 )
 
@@ -71,7 +70,6 @@ func (gm *Game) ThrowCard(id int, card Card) error {
 			if j, find := gm.players.SimpleSearchById(gm.progress.towhom); find {
 				if CanStill(gm.current_battle, &gm.players[j]) > 0 {
 					if i, find := gm.players.SimpleSearchById(id); find {
-						log.Println(id, card)
 						if card_i, find := gm.players[i].cards.SimpleSearchByCard(card); find {
 							gm.players[i].cards.Remove(card_i)
 							gm.current_battle = append(gm.current_battle, NewPairCard(card))

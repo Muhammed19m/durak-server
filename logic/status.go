@@ -7,7 +7,8 @@ type Status struct {
 	Trump                Card
 	Amount_cards_in_deck int
 	Battle               []PairCard
-	Progress             Progress
+	Progress             Prog
+	MyId                 int
 }
 
 func (gm *Game) GetStatusPlayer(id int) (Status, error) {
@@ -18,8 +19,13 @@ func (gm *Game) GetStatusPlayer(id int) (Status, error) {
 			gm.trump,
 			gm.card_deck.Len(),
 			gm.current_battle,
-			gm.progress,
+			Prog{gm.progress.who, gm.progress.towhom},
+			id,
 		}, nil
 	}
 	return Status{}, fmt.Errorf("player id %v not found", id)
+}
+
+type Prog struct {
+	Who, Towhom int
 }
