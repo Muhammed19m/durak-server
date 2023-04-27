@@ -3,7 +3,6 @@ package main
 import (
 	"log"
 	durak "serv_durak/logic"
-	"time"
 
 	"github.com/gorilla/websocket"
 )
@@ -30,7 +29,7 @@ func (room Room) Run() {
 	if err == nil { // everytime err == nil
 		room.ply2.Send(s)
 	}
-loop:
+	// loop:
 	for {
 		select {
 		case mes := <-room.ply1.Recv:
@@ -39,10 +38,10 @@ loop:
 		case mes := <-room.ply2.Recv:
 			_, err := Motion(&game, mes, 2)
 			room.ply2.SendText(err.Error())
-		case <-time.After(time.Second * 15): // timeout
-			room.ply1.SendText("game end, someone didn't fit")
-			room.ply2.SendText("game end, someone didn't fit")
-			break loop
+			// case <-time.After(time.Second * 15): // timeout
+			// 	room.ply1.SendText("game end, someone didn't fit")
+			// 	room.ply2.SendText("game end, someone didn't fit")
+			// 	break loop
 		}
 
 		s, err = game.GetStatusPlayer(1)

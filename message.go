@@ -12,8 +12,8 @@ const (
 
 type Message struct {
 	Typ_motion         int
-	Card               *durak.Card
 	Index_battle_cards int // for HitCard, default 0
+	Card               *durak.Card
 }
 
 // Bito

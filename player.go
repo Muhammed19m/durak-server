@@ -28,7 +28,7 @@ func (p *Player) SendText(mes string) error {
 func (p *Player) recv() {
 	for {
 		mes := Message{}
-		err := p.conn.ReadJSON(mes)
+		err := p.conn.ReadJSON(&mes)
 		if err == nil {
 			p.Recv <- mes
 		} else {

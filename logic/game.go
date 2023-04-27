@@ -15,6 +15,9 @@ type Game struct {
 	states         States
 }
 
+func (gm *Game) GetProgress() Progress {
+	return gm.progress
+}
 func NewGame() Game {
 	cards := NewCardDeck36x()
 	deq := deque.New[Card]()
